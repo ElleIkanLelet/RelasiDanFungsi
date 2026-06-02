@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE4EC"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Judul -->
+    <TextView
+        android:text="🌸 Relasi dan Fungsi 🌸"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/pink_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!-- Tombol Play -->
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:text="🎮 PLAY"
+        android:textSize="20sp"
+        android:fontFamily="@font/fredoka"
+        android:backgroundTint="@color/pink_primary"/>
+
+    <!-- Tombol Exit -->
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:text="💗 EXIT"
+        android:textSize="20sp"
+        android:fontFamily="@font/fredoka"
+        android:backgroundTint="@color/pink_primary"/>
+
+</LinearLayout>

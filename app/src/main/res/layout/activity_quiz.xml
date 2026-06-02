@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/pink_secondary">
+
+    <!-- Skor -->
+    <TextView
+        android:id="@+id/tvScore"
+        android:text="⭐ Score : 0"
+        android:textSize="20sp"
+        android:fontFamily="@font/fredoka"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+
+    <!-- Timer -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏰ 60"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/fredoka"/>
+
+    <!-- Soal -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Soal"
+            android:textSize="20sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- A -->
+    <Button
+        android:id="@+id/btnA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/pink_primary"/>
+    <!-- B -->
+    <Button
+        android:id="@+id/btnB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="B"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/pink_primary"/>
+    <!-- C -->
+    <Button
+        android:id="@+id/btnC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/pink_primary"/>
+    <!-- D -->
+    <Button
+        android:id="@+id/btnD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="D"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/pink_primary"/>
+    <!-- Space gitu -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!-- Hint -->
+    <Button
+        android:id="@+id/btnHint"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="💡 Hint"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/fredoka"
+        android:backgroundTint="@color/pink_dark" />
+
+</LinearLayout>

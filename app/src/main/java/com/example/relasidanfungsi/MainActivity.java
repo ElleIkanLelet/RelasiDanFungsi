@@ -3,6 +3,7 @@ package com.example.relasidanfungsi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +28,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnExit.setOnClickListener(v -> {
-            finishAffinity();
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Keluar?")
+                    .setMessage("Yakin ingin keluar dari game?")
+                    .setPositiveButton("Ya",
+                            (dialog, which) -> finishAffinity())
+                    .setNegativeButton("Tidak", null)
+                    .show();
+
         });
     }
 }

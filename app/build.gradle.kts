@@ -3,6 +3,12 @@ plugins {
 }
 
 android {
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
+    }
     namespace = "com.example.relasidanfungsi"
     compileSdk {
         version = release(36) {
@@ -11,6 +17,7 @@ android {
     }
 
     defaultConfig {
+
         applicationId = "com.example.relasidanfungsi"
         minSdk = 24
         targetSdk = 36
@@ -18,6 +25,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags += ""
+            }
+        }
     }
 
     buildTypes {

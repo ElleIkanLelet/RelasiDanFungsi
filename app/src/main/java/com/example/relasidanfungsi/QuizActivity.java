@@ -1,15 +1,17 @@
 package com.example.relasidanfungsi;
 
 import android.os.Bundle;
+import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import java.util.ArrayList;
-import android.os.Bundle;
+import android.content.res.ColorStateList;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.ArrayList;
 import java.util.Collections;
+import android.os.CountDownTimer;
+import android.content.Intent;
 
 
 public class QuizActivity extends AppCompatActivity {
@@ -19,7 +21,10 @@ public class QuizActivity extends AppCompatActivity {
     private int currentQuestion = 0;
     private int score = 0;
 
+    private CountDownTimer timer;
+    private int timeLeft = 60;
     private ArrayList<Question> questionList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,16 +242,12 @@ public class QuizActivity extends AppCompatActivity {
         ));
         Collections.shuffle(questionList);
         showQuestion();
-
-        btnHint.setOnClickListener(v -> {
-            Toast.makeText(
-                    QuizActivity.this,
-                    questionList.get(currentQuestion).hint,
-                    Toast.LENGTH_LONG
-            ).show();
-        });
+        startTimer();
     }
+
     private void showQuestion() {
+
+        resetButtonColors();
 
         Question q = questionList.get(currentQuestion);
 
@@ -256,5 +257,158 @@ public class QuizActivity extends AppCompatActivity {
         btnB.setText("B. " + q.optionB);
         btnC.setText("C. " + q.optionC);
         btnD.setText("D. " + q.optionD);
+
+        btnA.setOnClickListener(v -> {
+            animateButton(btnA);
+            checkAnswer("A", btnA);
+        });
+
+        btnB.setOnClickListener(v -> {
+            animateButton(btnB);
+            checkAnswer("B", btnB);
+        });
+
+        btnC.setOnClickListener(v -> {
+            animateButton(btnC);
+            checkAnswer("C", btnC);
+        });
+
+        btnD.setOnClickListener(v -> {
+            animateButton(btnD);
+            checkAnswer("D", btnD);
+        });
+
+        btnHint.setOnClickListener(v -> {
+
+            new AlertDialog.Builder(QuizActivity.this)
+                    .setTitle("Hint")
+                    .setMessage(q.hint)
+                    .setPositiveButton("OK", null)
+                    .show();
+
+        });
     }
+
+    private void resetButtonColors() {
+
+        btnA.setBackgroundResource(R.drawable.rounded_button);
+        btnB.setBackgroundResource(R.drawable.rounded_button);
+        btnC.setBackgroundResource(R.drawable.rounded_button);
+        btnD.setBackgroundResource(R.drawable.rounded_button);
+    }
+
+    private void checkAnswer(String selected, Button button) {
+
+        Question q = questionList.get(currentQuestion);
+
+        if (selected.equals(q.answer)) {
+
+            score++;
+
+            button.setText("BENAR");
+
+            button.setBackgroundResource(
+                    R.drawable.correct_button
+            );
+
+        } else {
+
+            score--;
+
+            button.setText("SALAH");
+
+            button.setBackgroundResource(
+                    R.drawable.wrong_button
+            );
+        }
+
+        tvScore.setText("⭐ Score : " + score);
+
+        button.postDelayed(() -> {
+
+            resetButtonColors();
+
+            currentQuestion++;
+
+            if (currentQuestion >= questionList.size()) {
+                Collections.shuffle(questionList);
+                currentQuestion = 0;
+            }
+
+            showQuestion();
+
+        }, 600);
+    }
+
+    private void animateButton(Button button) {
+
+        button.animate()
+                .translationY(-20f)
+                .scaleX(1.1f)
+                .scaleY(1.1f)
+                .setDuration(150)
+                .withEndAction(() ->
+                        button.animate()
+                                .translationY(0)
+                                .scaleX(1f)
+                                .scaleY(1f)
+                                .setDuration(150)
+                );
+    }
+
+    private void shakeButton(Button button) {
+
+        button.animate()
+                .translationX(20)
+                .setDuration(50)
+                .withEndAction(() ->
+                        button.animate()
+                                .translationX(-20)
+                                .setDuration(50)
+                                .withEndAction(() ->
+                                        button.animate()
+                                                .translationX(20)
+                                                .setDuration(50)
+                                                .withEndAction(() ->
+                                                        button.animate()
+                                                                .translationX(0)
+                                                                .setDuration(50)
+                                                )
+                                )
+                );
+    }
+
+    private void startTimer() {
+
+        timer = new CountDownTimer(60000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                timeLeft--;
+
+                tvTimer.setText("⏰ " + timeLeft);
+            }
+
+            @Override
+            public void onFinish() {
+
+                tvTimer.setText("⏰ 0");
+
+                Intent intent = new Intent(
+                        QuizActivity.this,
+                        ResultActivity.class
+                );
+
+                intent.putExtra("score", score);
+
+                startActivity(intent);
+
+                finish();
+            }
+        };
+
+        timer.start();
+    }
+
 }
